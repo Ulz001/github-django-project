@@ -56,6 +56,10 @@ class InInventory(models.Model):
     in_datetime = models.DateTimeField(auto_now=True, verbose_name='入库时间')
     in_supplier = models.CharField(max_length=15, verbose_name='供应商')
 
+    class Meta:
+        verbose_name = '入库'
+        verbose_name_plural = verbose_name
+
 
 class OutInventory(models.Model):
     """
@@ -64,9 +68,13 @@ class OutInventory(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE, related_name='OutInventory',
                                  verbose_name='物料序号')
     out_way = models.CharField(max_length=8, null=False, verbose_name='去向途径')
-    out_datatime = models.DateTimeField(auto_now=True, verbose_name='出库时间')
+    out_datetime = models.DateTimeField(auto_now=True, verbose_name='出库时间')
     supplier = models.CharField(max_length=20, null=False, verbose_name='消耗单位')
     num = models.IntegerField(null=False, verbose_name='出库数量', validators=[MinValueValidator(0)])
+
+    class Meta:
+        verbose_name = '出库'
+        verbose_name_plural = verbose_name
 
 
 class CheckInventory(models.Model):
