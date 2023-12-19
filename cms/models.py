@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils.html import format_html
 
 
 class Material(models.Model):
@@ -15,6 +17,32 @@ class Material(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name='物料价格')
     now_datetime = models.DateTimeField(auto_now=True, verbose_name='入库时间')
     supplier = models.CharField(max_length=15, null=False, verbose_name='供应商')
+
+    def image(self):
+        if not self.picture:
+            return '无图片'
+        return format_html("""<div><img src='{}' style='width:50px;height:50px;' ></div>""", self.picture.url)
+
+    image.short_description = '图片'
+
+    def warning(self, obj):
+        if obj.now_inventory < obj.min_inventory:
+            return format_html('<span style="color:red;">库存不足,请及时补货</span>')
+        elif obj.now_inventory > obj.max_inventory:
+            return format_html('<span style="color:blue;">库存超出，不允许入库</span>')
+
+    warning.short_description = '库存警告'
+
+    def clean(self):
+        if self.max_inventory < self.min_inventory:
+            raise ValidationError('最大库存不能小于最小库存')
+
+    class Meta:
+        verbose_name = '物料'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class InInventory(models.Model):
