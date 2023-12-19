@@ -13,7 +13,7 @@ class Material(models.Model):
     min_inventory = models.IntegerField(null=False, validators=[MinValueValidator(1)], verbose_name='最小库存')
     now_inventory = models.IntegerField(null=False, validators=[MinValueValidator(0)], verbose_name='当前库存')
     description = models.CharField(max_length=100, null=True, verbose_name='物料描述')
-    picture = models.ImageField(upload_to='media/upload_images', null=True, verbose_name='物料图片')
+    picture = models.ImageField(upload_to='upload_images', null=True, verbose_name='物料图片')
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name='物料价格')
     now_datetime = models.DateTimeField(auto_now=True, verbose_name='入库时间')
     supplier = models.CharField(max_length=15, null=False, verbose_name='供应商')
@@ -25,13 +25,15 @@ class Material(models.Model):
 
     image.short_description = '图片'
 
-    def warning(self, obj):
-        if obj.now_inventory < obj.min_inventory:
-            return format_html('<span style="color:red;">库存不足,请及时补货</span>')
-        elif obj.now_inventory > obj.max_inventory:
-            return format_html('<span style="color:blue;">库存超出，不允许入库</span>')
+    def warning(self):
+        if self.now_inventory < self.min_inventory:
+            return format_html('<span style="color:red;">库存不足</span>')
+        elif self.now_inventory > self.max_inventory:
+            return format_html('<span style="color:yellow;">库存超出</span>')
+        else:
+            return format_html('<span style="color:green;">库存充足</span>')
 
-    warning.short_description = '库存警告'
+    warning.short_description = '库存情况'
 
     def clean(self):
         if self.max_inventory < self.min_inventory:
