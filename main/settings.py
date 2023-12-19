@@ -124,4 +124,50 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLEUI_CONFIG = {
     'system_keep': True,
+    'menu_display': ['物料信息', '库存盘点', '库存管理', '用户权限'],
+    'dynamic': False,
+    'menus': [
+        {
+            'app': 'cms',
+            'name': '物料信息',
+            'icon': 'fa fa-message',
+            'url': 'cms/material/',
+        },
+        {
+            'app': 'cms',
+            'name': '库存盘点',
+            'url': 'cms/checkinventory',
+        },
+        {
+            'app': 'cms',
+            'name': '库存管理',
+            'icon': 'fa fa-cubes',
+            'models': [
+                {
+                    'name': '入库',
+                    'icon': 'fa fa-download',
+                    'url': 'cms/ininventory/'
+                }, {
+                    'name': '出库',
+                    'icon': 'fa fa-upload',
+                    'url': 'cms/outinventory/'
+                }
+            ]
+        },
+        {
+            'app': 'auth',
+            'name': '用户权限',
+            'icon': 'fa fa-user',
+            'models': [
+                {
+                    'name': '用户',
+                    'url': 'auth/user/',
+                }, {
+                    'name': '组',
+                    'icon': 'fa fa-users',
+                    'url': 'auth/group/',
+                }
+            ]
+        }
+    ]
 }
