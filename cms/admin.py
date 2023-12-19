@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cms.models import Material, InInventory, OutInventory
+from cms.models import Material, InInventory, OutInventory, CheckInventory
 
 # 设置标题、页脚、login页面标题
 admin.site.site_header = "商店库存管理系统"
@@ -33,4 +33,8 @@ class OutInventoryAdmin(admin.ModelAdmin):
     list_filter = ('id', 'out_way', 'out_datetime')
 
 
-
+@admin.register(CheckInventory)
+class CheckInventoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'num', 'actual_num', 'datetime'
+    )

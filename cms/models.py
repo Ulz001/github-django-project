@@ -86,3 +86,7 @@ class CheckInventory(models.Model):
     datetime = models.DateTimeField(auto_now_add=True, verbose_name='盘点日期')
     num = models.IntegerField(null=False, verbose_name='库存数量')
     actual_num = models.IntegerField(null=False, verbose_name='实际数量')
+
+    class Meta:
+        verbose_name = '盘点'
+        verbose_name_plural = verbose_name
