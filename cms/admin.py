@@ -17,6 +17,14 @@ class MaterialAdmin(admin.ModelAdmin):
         'now_datetime', 'warning'
     )
     list_filter = ('id', 'name', 'supplier', 'now_datetime')
+    actions = ['export_materials', ]
+
+    def export_materials(self, request, queryset):
+        return export_excel.ExcelWrite(sheet_name='物料清单', queryset=queryset).write_header.write_data()
+
+    export_materials.short_description = "导出物料清单"
+    export_materials.icon = "fas fa-file-excel"
+    export_materials.type = "success"
 
 
 @admin.register(InInventory)
@@ -29,10 +37,6 @@ class InInventoryAdmin(admin.ModelAdmin):
 
     def export_excel(self, request, queryset):
         excel = export_excel.ExcelWrite(sheet_name='入库单据', queryset=queryset).write_header.write_data()
-        headers = list(queryset.values()[0].keys())
-        rows = queryset.values()
-        print(headers)
-        print(rows)
         return excel
 
     export_excel.short_description = "导出选中单据"
@@ -46,6 +50,14 @@ class OutInventoryAdmin(admin.ModelAdmin):
         'id', 'material', 'num', 'out_way', 'out_datetime', 'supplier',
     )
     list_filter = ('id', 'out_way', 'out_datetime')
+    actions = ['export_out', ]
+
+    def export_out(self, request, queryset):
+        return export_excel.ExcelWrite(sheet_name='出库单据', queryset=queryset).write_header.write_data()
+
+    export_out.short_description = "导出选中单据"
+    export_out.type = "success"
+    export_out.icon = "fas fa-file-excel"
 
 
 @admin.register(CheckInventory)
@@ -53,3 +65,16 @@ class CheckInventoryAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'num', 'actual_num', 'datetime'
     )
+    list_filter = ('id', 'datetime')
+    actions = ['export_check', ]
+
+    def export_check(self, request, queryset):
+        return export_excel.ExcelWrite(sheet_name='盘点记录', queryset=queryset).write_header.write_data()
+
+    export_check.short_description = "导出选中单据"
+    export_check.type = "success"
+    export_check.icon = "fas fa-file-excel"
+
+    export_check.short_description = "导出选中单据"
+    export_check.type = "success"
+    export_check.icon = "fas fa-file-excel"

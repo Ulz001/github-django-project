@@ -98,3 +98,6 @@ class CheckInventory(models.Model):
     class Meta:
         verbose_name = '盘点'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.material.name
