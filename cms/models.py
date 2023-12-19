@@ -62,6 +62,9 @@ class InInventory(models.Model):
         verbose_name = '入库'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.material.name
+
 
 class OutInventory(models.Model):
     """
@@ -77,6 +80,9 @@ class OutInventory(models.Model):
     class Meta:
         verbose_name = '出库'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.material.name
 
 
 class CheckInventory(models.Model):

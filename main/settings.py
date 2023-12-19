@@ -125,7 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ***************** simpleui配置 *****************
-SIMPLEUI_LOGO = '/static/logo/logo.jpg'
+SIMPLEUI_LOGO = '/static/logo/logo.png'
 
 SIMPLEUI_DEFAULT_THEME = 'green.css'
 SIMPLEUI_DEFAULT_FONT = 14
