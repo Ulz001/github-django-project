@@ -1,8 +1,8 @@
 from django.urls import path
 
-from cms.views.register import RegisterView
+from cms.views.user import UserView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('api/register/', RegisterView.as_view(), name='register'),
+    path('api/v1/users/', UserView.as_view(), name='user'),
 ]
