@@ -20,6 +20,9 @@
       <el-form-item style="float: right">
         <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
       </el-form-item>
+      <el-form-item style="position: absolute; right: 12%; top: 80%">
+        <el-link href="/" target="_self">没有账号？前往注册</el-link>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -28,6 +31,7 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules, ElNotification } from 'element-plus'
 import axios from 'axios'
+import router from '../router'
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -77,7 +81,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
         .then((res) => {
           if (res.data['status'] === 200) {
             console.log(res.data)
-            // router.push('/index')
+            localStorage.setItem('token', res.data['token'])
+            router.push('/home')
             return ElNotification({
               title: 'Success',
               message: '登录成功!',
@@ -98,12 +103,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
             type: 'error'
           })
         })
-    } else {
-      return ElNotification({
-        title: 'Error',
-        message: '',
-        type: 'error'
-      })
     }
   })
 }
@@ -122,6 +121,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: url('http://127.0.0.1:8000/media/upload_images/jarry.jpg');
+  //background-image: url('http://127.0.0.1:8000/media/upload_images/jarry.jpg');
 }
 </style>

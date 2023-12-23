@@ -19,7 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views import static
 
+from rest_framework_jwt.views import ObtainJSONWebToken, VerifyJSONWebToken, RefreshJSONWebToken, obtain_jwt_token
+
+
 urlpatterns = [
+
+    url(r'^login/', obtain_jwt_token),
     path('admin/', admin.site.urls),
     path('api/v1/', include('cms.urls')),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),

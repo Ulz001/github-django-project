@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
-from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from cms.serializers.UserSerializer import UserSerializer
 
 
 class UserList(APIView):
+
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -22,6 +23,7 @@ class UserList(APIView):
 
 
 class UserDetail(APIView):
+
     def get(self, request, pk):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
