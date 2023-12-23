@@ -28,9 +28,12 @@
         />
       </el-form-item>
 
-      <el-form-item style="float: right">
+      <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">注册</el-button>
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+      </el-form-item>
+      <el-form-item style="float: right">
+        <el-link href="/login" target="_self">Login</el-link>
       </el-form-item>
     </el-form>
   </div>
@@ -38,7 +41,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules, ElNotification } from 'element-plus'
+import type { ElNotification, FormInstance, FormRules } from 'element-plus'
 import axios from 'axios'
 import router from '../router'
 
@@ -136,8 +139,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
           })
         )
     } else {
-      console.log('error submit!')
-      return false
+      return ElNotification({
+        title: 'Error',
+        message: '提交错误！',
+        type: 'error'
+      })
     }
   })
 }
@@ -153,7 +159,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   box-shadow: var(--el-box-shadow-dark);
   border-radius: 5px;
   width: 300px;
-  height: 300px;
+  height: 350px;
   margin: auto;
   padding: 50px;
   text-align: center;

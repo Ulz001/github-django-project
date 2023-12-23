@@ -19,7 +19,6 @@
 
       <el-form-item style="float: right">
         <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
-        <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -68,23 +67,45 @@ const rules = reactive<FormRules<typeof ruleForm>>({
 
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  formEl.validate(async (valid) => {
     if (valid) {
-      return ElNotification({
-        title: 'Success',
-        message: '登录成功!',
-        type: 'success'
-      })
+      await axios
+        .post('/login/', {
+          username: ruleForm.user,
+          password: ruleForm.pass
+        })
+        .then((res) => {
+          if (res.data['status'] === 200) {
+            console.log(res.data)
+            // router.push('/index')
+            return ElNotification({
+              title: 'Success',
+              message: '登录成功!',
+              type: 'success'
+            })
+          } else if (res.data['status'] === 401) {
+            return ElNotification({
+              title: 'Error',
+              message: res.data['error'],
+              type: 'error'
+            })
+          }
+        })
+        .catch((err) => {
+          return ElNotification({
+            title: err.title,
+            message: err.message,
+            type: 'error'
+          })
+        })
     } else {
-      console.log('error submit!')
-      return false
+      return ElNotification({
+        title: 'Error',
+        message: '',
+        type: 'error'
+      })
     }
   })
-}
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
 }
 </script>
 

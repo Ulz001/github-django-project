@@ -1,8 +1,12 @@
-from django.urls import path
+from django.urls import re_path
 
-from cms.views.user import UserView
+from cms.views.login import LoginView
+from cms.views.user import UserList, UserDetail
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('api/v1/users/', UserView.as_view(), name='user'),
+    re_path(r'^login/$', LoginView.as_view(), name='login'),
+
+    re_path(r'^users/$', UserList.as_view(), name='UserList'),
+    re_path(r'^users/(?P<pk>[a-zA-Z0-9]+)/$', UserDetail.as_view(), name='UserDetail'),
 ]
