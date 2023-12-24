@@ -17,7 +17,7 @@
     <div class="flex-grow" />
     <el-sub-menu index="1">
       <template #title>欢迎你！{{ username }}</template>
-      <el-menu-item index="2-1">
+      <el-menu-item index="2-1" @click="logout">
         <el-icon>
           <Close color="#c45656" />
         </el-icon>
@@ -46,7 +46,7 @@ const handleClose = () => {}
 const logout = () => {
   userStore.removeUserData()
   localStorage.removeItem('token')
-  router.push('/login')
+  router.push({ name: 'login' })
 }
 </script>
 

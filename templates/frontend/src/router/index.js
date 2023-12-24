@@ -25,7 +25,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
   const { status, username, token } = userStore.getUserData()
-  next()
+  if (to.name === 'login' || to.name === 'register') {
+    next()
+  } else if (token === '') {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router
