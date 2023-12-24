@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from rest_framework.response import Response
 
 from rest_framework.views import APIView
@@ -16,6 +17,7 @@ class LoginView(APIView):
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
         if user.check_password(request.data["password"]):
-            return Response({'status': 200, 'token': token})
+            cache.set(request.data['username'], token, 60 * 30)
+            return Response({'status': 200, 'username': request.data['username'], 'token': token})
         else:
             return Response({'status': 401, 'error': '密码错误'})

@@ -32,8 +32,10 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules, ElNotification } from 'element-plus'
 import axios from 'axios'
 import router from '../router'
+import { useUserStore } from '../stores/user'
 
 const ruleFormRef = ref<FormInstance>()
+const userStore = useUserStore()
 
 const checkUser = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -80,8 +82,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
         })
         .then((res) => {
           if (res.data['status'] === 200) {
-            console.log(res.data)
             localStorage.setItem('token', res.data['token'])
+
+            userStore.setUserData(res.data)
+
             router.push('/home')
             return ElNotification({
               title: 'Success',

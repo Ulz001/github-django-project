@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user/index.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,26 +19,15 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/HomeView.vue')
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
-  console.log(from)
-  let token = localStorage.getItem('token')
-  if (token || to.path === '/login'){
-    next()
-  } else {
-    next('/login')
-  }
+  const userStore = useUserStore()
+  const { status, username, token } = userStore.getUserData()
+  if (to in ['/login', '/register']) next()
+  else if (token) next()
+  else next('/login')
 })
 
 export default router

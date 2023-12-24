@@ -155,11 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        # # session认证
         # 'rest_framework.authentication.SessionAuthentication',
-        # # 基本认证
         # 'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
@@ -169,6 +165,7 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=30),
+    # 'JWT_RESPONSE_PAYLOAD_HANDLER': 'cms.utils.auth.MyToken',
 }
 
 # ********************* 跨域配置 *****************

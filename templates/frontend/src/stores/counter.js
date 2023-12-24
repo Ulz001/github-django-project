@@ -7,3 +7,9 @@ export const useCounterStore = defineStore('counter', () => {
 
   return { count, doubleCount }
 })
+
+export const useUserStore = defineStore('user', () => {
+  const token = ref('')
+
+  return { token }
+})
