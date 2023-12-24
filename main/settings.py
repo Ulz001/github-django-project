@@ -175,7 +175,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ('*',)
 
 # ***************** simpleui配置 *****************
-SIMPLEUI_LOGO = '/static/logo/logo.png'
+SIMPLEUI_LOGO = '/media/logo/logo.png'
 
 SIMPLEUI_DEFAULT_THEME = 'green.css'
 SIMPLEUI_DEFAULT_FONT = 14
