@@ -1,5 +1,6 @@
 from django.urls import re_path
 
+from cms.views.check import CheckList
 from cms.views.inStash import InStashList
 from cms.views.login import LoginView
 from cms.views.outStash import OutStashList
