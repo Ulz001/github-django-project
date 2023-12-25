@@ -11,7 +11,7 @@
   >
     <el-menu-item index="0">
       <el-icon>
-        <el-image src="http://localhost:8000/static/logo/logo.png"> 商店库存管理系统</el-image>
+        <el-image src="http://localhost:8000/media/logo/logo.png"> 商店库存管理系统</el-image>
       </el-icon>
       <h1>商店库存管理系统</h1>
     </el-menu-item>

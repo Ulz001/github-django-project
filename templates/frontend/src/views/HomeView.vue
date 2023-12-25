@@ -6,11 +6,11 @@
       </el-header>
 
       <el-container>
-        <el-aside width="400px">
-          <Aside />
-        </el-aside>
+        <!--        <el-aside width="400px"><Aside /></el-aside>-->
         <el-container>
-          <el-main> </el-main>
+          <el-main>
+            <Main />
+          </el-main>
         </el-container>
       </el-container>
     </el-container>
@@ -19,4 +19,5 @@
 <script setup>
 import Header from '@/components/header/Header.vue'
 import Aside from '@/components/aside/Aside.vue'
+import Main from '@/components/main/Main.vue'
 </script>

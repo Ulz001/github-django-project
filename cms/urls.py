@@ -3,6 +3,7 @@ from django.urls import re_path
 from cms.views.login import LoginView
 from cms.views.register import RegisterView
 from cms.views.user import UserList, UserDetail
+from cms.views.material import MaterialList
 
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -17,4 +18,6 @@ urlpatterns = [
 
     re_path(r'^users/$', UserList.as_view(), name='UserList'),
     re_path(r'^users/(?P<pk>[a-zA-Z0-9]+)/$', UserDetail.as_view(), name='UserDetail'),
+
+    re_path(r'^materials/$', MaterialList.as_view(), name='MaterialList'),
 ]
