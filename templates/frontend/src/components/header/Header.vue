@@ -3,7 +3,7 @@
     :default-active="activeIndex"
     class="el-menu"
     mode="horizontal"
-    :ellipsis=false
+    :ellipsis="false"
     background-color="#F2F6FC"
     @open="handleOpen"
     @close="handleClose"
@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useUserStore } from '../../stores/user'
+import { useUserStore } from '@/stores/user'
 import { Close } from '@element-plus/icons-vue'
 import router from '../../router'
 

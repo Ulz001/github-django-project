@@ -1,13 +1,23 @@
 <template>
-  <div class="echart" style="width: 600px; height: 400px" ref="chart" id="chart"></div>
+  <el-row>
+    <el-col :span="6">
+      <div class="chart" style="width: 300px; height: 300px" ref="chart" id="chart" />
+    </el-col>
+    <el-col :span="6">
+      <div class="chart" style="width: 300px; height: 300px" ref="in" id="in" />
+    </el-col>
+    <el-col :span="6">
+      <div class="chart" style="width: 300px; height: 300px" ref="out" id="out" />
+    </el-col>
+    <el-col :span="6">
+      <div class="chart" style="width: 300px; height: 300px" ref="check" id="check" />
+    </el-col>
+  </el-row>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import axios from 'axios'
-import { useUserStore } from '@/stores/user/index.js'
-
-axios.defaults.headers.get['Authorization'] = 'jwt ' + useUserStore().getUserData().token
+import { ref, onMounted } from 'vue'
+import { getMaterialList } from '@/api/api.js'
 
 import * as echarts from 'echarts'
 import { GridComponent } from 'echarts/components'
@@ -18,11 +28,10 @@ echarts.use([GridComponent, BarChart, CanvasRenderer])
 
 const chart = ref('')
 
-onMounted(() => {
+onMounted(async () => {
   const chartDom = echarts.init(chart.value)
 
-  axios
-    .get('/materials/')
+  await getMaterialList()
     .then((res) => {
       const xAxis = res.data.materials[0]
       const series = res.data.materials[1]
@@ -46,5 +55,6 @@ onMounted(() => {
     .catch((err) => {
       console.log(err)
     })
+
 })
 </script>

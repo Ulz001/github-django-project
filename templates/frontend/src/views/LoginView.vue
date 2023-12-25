@@ -30,9 +30,9 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules, ElNotification } from 'element-plus'
-import axios from 'axios'
+import { login } from '@/api/api'
 import router from '../router'
-import { useUserStore } from '../stores/user'
+import { useUserStore } from '@/stores/user'
 
 const ruleFormRef = ref<FormInstance>()
 const userStore = useUserStore()
@@ -45,7 +45,6 @@ const checkUser = (rule: any, value: any, callback: any) => {
     if (value) {
       callback()
     } else {
-      console.log(value)
       callback(new Error('用户名不能超过32个字符'))
     }
   }, 1000)
@@ -75,32 +74,24 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid) => {
     if (valid) {
-      await axios
-        .post('/login/', {
-          username: ruleForm.user,
-          password: ruleForm.pass
-        })
+      await login({
+        username: ruleForm.user,
+        password: ruleForm.pass
+      })
         .then((res) => {
           if (res.data['status'] === 200) {
             localStorage.setItem('token', res.data['token'])
-
             userStore.setUserData(res.data)
-
             router.push('/home')
             return ElNotification({
               title: 'Success',
               message: '登录成功!',
               type: 'success'
             })
-          } else if (res.data['status'] === 401) {
-            return ElNotification({
-              title: 'Error',
-              message: res.data['error'],
-              type: 'error'
-            })
           }
         })
         .catch((err) => {
+          console.log(err)
           return ElNotification({
             title: err.title,
             message: err.message,
@@ -125,6 +116,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  //background-image: );
+//background-image: );
 }
 </style>
