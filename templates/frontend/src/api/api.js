@@ -11,3 +11,7 @@ export function login(data) {
 export function getInStashList() {
   return http.get('/in-stash/')
 }
+
+export function getOutStashList() {
+  return http.get('/out-stash/')
+}

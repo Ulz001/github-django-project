@@ -17,7 +17,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getMaterialList, getInStashList } from '@/api/api.js'
+import { getMaterialList, getInStashList, getOutStashList } from '@/api/api.js'
 
 import * as echarts from 'echarts'
 import { GridComponent } from 'echarts/components'
@@ -97,7 +97,7 @@ onMounted(async () => {
             labelLine: {
               show: false
             },
-            data: res.data.InStashData
+            data: res.data.data
           }
         ]
       }
@@ -106,6 +106,47 @@ onMounted(async () => {
     .catch((err) => {
       console.log(err)
     })
+
+  await getOutStashList().then((res) => {
+    const option = {
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '5%',
+        left: 'center'
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
+          label: {
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 40,
+              fontWeight: 'bold'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: res.data.data
+        }
+      ]
+    }
+    outChartDom.setOption(option)
+  })
 
   const option = {
     tooltip: {
@@ -150,7 +191,7 @@ onMounted(async () => {
       }
     ]
   }
-  outChartDom.setOption(option)
+
   checkChartDom.setOption(option)
 })
 </script>

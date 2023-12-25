@@ -2,6 +2,7 @@ from django.urls import re_path
 
 from cms.views.inStash import InStashList
 from cms.views.login import LoginView
+from cms.views.outStash import OutStashList
 from cms.views.register import RegisterView
 from cms.views.user import UserList, UserDetail
 from cms.views.material import MaterialList
@@ -23,4 +24,6 @@ urlpatterns = [
     re_path(r'^materials/$', MaterialList.as_view(), name='MaterialList'),
 
     re_path(r'^in-stash/$', InStashList.as_view(), name='InStashList'),
+
+    re_path(r'^out-stash/$', OutStashList.as_view(), name='OutStashList'),
 ]

@@ -6,4 +6,4 @@ from cms.models import InInventory
 class InStashSerializer(serializers.ModelSerializer):
     class Meta:
         model = InInventory
-        fields = ('id', 'material', 'num')
+        fields = ('material', 'num')
