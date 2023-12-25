@@ -1,9 +1,10 @@
 <template>
   <el-menu
     :default-active="activeIndex"
-    class="el-menu-demo"
+    class="el-menu"
     mode="horizontal"
-    :ellipsis="false"
+    :ellipsis=false
+    background-color="#F2F6FC"
     @open="handleOpen"
     @close="handleClose"
     @select="handleSelect"

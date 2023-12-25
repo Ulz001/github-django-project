@@ -3,6 +3,7 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
+      background-color="#F2F6FC"
       @open="handleOpen"
       @close="handleClose"
     >

@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header>
+      <el-header style="padding: 0">
         <Header />
       </el-header>
 
@@ -10,10 +10,7 @@
           <Aside />
         </el-aside>
         <el-container>
-          <el-main>Main</el-main>
-          <el-footer>
-            <Footer />
-          </el-footer>
+          <el-main> </el-main>
         </el-container>
       </el-container>
     </el-container>
@@ -22,5 +19,4 @@
 <script setup>
 import Header from '@/components/header/Header.vue'
 import Aside from '@/components/aside/Aside.vue'
-import Footer from '@/components/footer/footer.vue'
 </script>

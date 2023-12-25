@@ -125,6 +125,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  //background-image: url('http://127.0.0.1:8000/media/upload_images/jarry.jpg');
+  //background-image: );
 }
 </style>
