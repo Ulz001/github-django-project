@@ -8,4 +8,6 @@ export function login(data) {
   return http.post('/login/', data)
 }
 
-
+export function getInStashList() {
+  return http.get('/in-stash/')
+}
