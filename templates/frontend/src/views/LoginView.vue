@@ -91,7 +91,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
           }
         })
         .catch((err) => {
-          console.log(err)
           return ElNotification({
             title: err.title,
             message: err.message,
